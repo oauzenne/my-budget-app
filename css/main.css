@@ -2,39 +2,99 @@ body {
   font-family: "Poppins", serif;
   background-color: #f2f2f2;
   margin: 10px 100px 10px 100px;
+  color: #1a1a1a;
 }
 
 h1 {
-  font-size: 50px;
-  color: #1a1a1a;
+  font-size: 3.75em;
   text-align: left;
 }
 
 h2 {
-  font-size: 30px;
-  color: #1a1a1a;
-  text-align: center;
-  background-color: white;
-  border-radius: 30px;
-  padding: 10px;
   width: 20%;
+  margin: 0px;
+  display: flex;
+  justify-content: center;
 }
 
-#header-div {
+.section-div {
   width: 100%;
   display: flex;
 }
 
-.header-sub-divs {
+#header-sub-div-title {
   width: 50%;
   display: flex;
+  justify-content: left;
+}
+
+#header-sub-div-money {
+  width: 50%;
+  display: flex;
+  justify-content: right;
   align-items: center;
 }
 
-#justify-right {
-  justify-content: right;
+#money-bubble {
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border-radius: 30px;
+  width: 30%;
+  justify-content: center;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
 }
 
-#justify-left {
+#list {
+  list-style-type: none;
+  padding: 0px;
+}
+
+#list-div {
+  display: flex;
+  width: 50%;
   justify-content: left;
+  flex-direction: column;
+}
+
+#card-div {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+}
+
+.list-item {
+  font-size: 1.5em;
+  cursor: pointer;
+  background-color: none;
+  padding: 15px;
+  justify-content: center;
+  display: flex;
+  width: 35%;
+}
+
+.list-item-active {
+  background-color: white;
+  border-radius: 30px;
+  padding: 15px;
+}
+
+text {
+  font-size: 0.75em;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 768px) {
+  .section-div {
+    display: flex;
+    flex-direction: column;
+  }
+  #header-sub-div-money {
+    justify-content: left;
+  }
+  #money-bubble {
+    background-color: transparent;
+  }
 }
