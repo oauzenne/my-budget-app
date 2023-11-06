@@ -10,6 +10,7 @@
       rel="stylesheet" />
 
     <link rel="stylesheet" href="css/main.css" />
+    <script defer src="main.js"></script>
   </head>
   <body>
     <div class="section-div">
@@ -34,9 +35,9 @@
             <div id="card-title">My Income</div>
             <div id="card-list">
               <div id="income-item-table">
-                <table>
+                <table id="card-table" card-table>
                   <tr>
-                    <td class="income-title">Work</td>
+                    <td>Work</td>
                     <td class="input">
                       <form action="">
                         <input
@@ -48,7 +49,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="income-title">Freelance</td>
+                    <td>Freelance</td>
                     <td class="input">
                       <form action="">
                         <input
@@ -60,7 +61,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="income-title">Dividends</td>
+                    <td>Dividends</td>
                     <td class="input">
                       <form action="">
                         <input
@@ -72,15 +73,16 @@
                     </td>
                   </tr>
                 </table>
-
-                <div id="add-new-income-div">
-                  <form class="new-form" action="">
+                <div>
+                  <form action="" new-item class="new-form">
                     <input
                       type="text"
                       class="add-new"
                       placeholder="Add New Income"
-                      aria-label="new income" />
-                    <button class="add-button" aria-label="create new income">
+                      aria-label="new income"
+                      add-new /><button
+                      class="add-button"
+                      aria-label="create new income">
                       +
                     </button>
                   </form>
