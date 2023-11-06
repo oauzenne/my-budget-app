@@ -26,6 +26,7 @@ h2 {
   width: 50%;
   display: flex;
   justify-content: left;
+  margin-left: 100px;
 }
 
 #header-sub-div-money {
@@ -33,6 +34,7 @@ h2 {
   display: flex;
   justify-content: right;
   align-items: center;
+  margin-right: 250px;
 }
 
 #money-bubble {
@@ -50,21 +52,21 @@ h2 {
 #list {
   list-style-type: none;
   padding: 0px;
-  margin-left: 120px;
+  display: flex;
+  justify-content: right;
+  flex-direction: column;
 }
 
 #list-div {
-  display: flex;
-  width: 50%;
-  justify-content: left;
-  flex-direction: column;
+  width: 40%;
 }
 
 #card-div {
   display: flex;
-  width: 50%;
+  width: 60%;
   justify-content: left;
   height: 365px;
+  margin-left: 100px;
 }
 
 .list-item {
@@ -75,6 +77,7 @@ h2 {
   justify-content: center;
   display: flex;
   width: 35%;
+  align-self: flex-end;
 }
 
 .list-item-active {
@@ -121,8 +124,9 @@ text {
   border: 0px;
   background-color: #1a1a1a;
   color: white;
-  height: 25px;
-  width: 25px;
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
 }
 
 #add-new-income-div {
@@ -139,6 +143,19 @@ text {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.input {
+  padding-left: 15px;
+}
+
+.add-new {
+  border: 0px;
+  border-bottom: 1px solid black;
+  width: 80%;
+  font-family: "Poppins", serif;
+  margin-right: 10px;
+  font-size: 1.5em;
 }
 
 @media screen and (max-width: 768px) {
