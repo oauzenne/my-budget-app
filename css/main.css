@@ -158,15 +158,45 @@ text {
   font-size: 1.5em;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1089px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px;
+  }
+
   .section-div {
     display: flex;
     flex-direction: column;
   }
   #header-sub-div-money {
-    justify-content: left;
+    justify-content: center;
+    width: 100%;
+    margin-right: 0px;
   }
   #money-bubble {
     background-color: transparent;
+  }
+  #list-div {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+  }
+
+  .list-item {
+    width: 85%;
+  }
+  #header-sub-div-title {
+    width: 100%;
+    justify-content: center;
+  }
+  #header-sub-div-title {
+    margin-left: 0px;
+  }
+  #card-div {
+    width: 100%;
+    margin-left: 0px;
+    justify-content: center;
   }
 }
