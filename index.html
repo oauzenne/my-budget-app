@@ -17,7 +17,10 @@
       <div id="header-sub-div-title"><h1>My Budget</h1></div>
       <div id="header-sub-div-money">
         <div id="money-bubble">
-          <h2>$XX.XX</h2>
+          <div id="money-div">
+            <h2>$</h2>
+            <h2 id="dollar" dollar>0</h2>
+          </div>
           <text>Net Income</text>
         </div>
       </div>
@@ -34,55 +37,99 @@
           <div class="card-inner-div" id="income-div" income-div>
             <div class="card-title" card-display-title>My Income</div>
             <div card-display-list>
-              <div >
-                <table card-table>
-                  <tr>
-                    <td>Work</td>
-                    <td class="input">
-                      <form action="">
-                        <input
-                          type="number"
-                          class="dollar-amount"
-                          placeholder="$$$"
-                          aria-label="$$$" />
-                      </form>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Freelance</td>
-                    <td class="input">
-                      <form action="">
-                        <input
-                          type="number"
-                          class="dollar-amount"
-                          placeholder="$$$"
-                          aria-label="$$$" />
-                      </form>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Dividends</td>
-                    <td class="input">
-                      <form action="">
-                        <input
-                          type="number"
-                          class="dollar-amount"
-                          placeholder="$$$"
-                          aria-label="$$$" />
-                      </form>
-                    </td>
-                  </tr>
+              <div>
+                <table>
+                  <tbody table-body>
+                    <tr>
+                      <td>Work</td>
+                      <td class="input">
+                        <form id="form" action="">
+                          <input
+                            type="number"
+                            class="dollar-amount"
+                            placeholder="$$$"
+                            aria-label="$$$"
+                            data-input-index="0" />
+                          <button
+                            class="submit-button"
+                            data-input-index="0"
+                            submit-button>
+                            >
+                          </button>
+                          <button
+                            class="delete-button"
+                            data-input-index="0"
+                            delete-button>
+                            X
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Freelance</td>
+                      <td class="input">
+                        <form id="form" action="">
+                          <input
+                            type="number"
+                            class="dollar-amount"
+                            placeholder="$$$"
+                            aria-label="$$$"
+                            data-input-index="1" />
+                          <button
+                            class="submit-button"
+                            data-input-index="1"
+                            submit-button>
+                            >
+                          </button>
+                          <button
+                            class="delete-button"
+                            data-input-index="1"
+                            delete-button>
+                            X
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Dividends</td>
+                      <td class="input">
+                        <form id="form" action="">
+                          <input
+                            type="number"
+                            class="dollar-amount"
+                            placeholder="$$$"
+                            aria-label="$$$"
+                            data-input-index="2" />
+                          <button
+                            class="submit-button"
+                            data-input-index="2"
+                            submit-button>
+                            >
+                          </button>
+                          <button
+                            class="delete-button"
+                            data-input-index="2"
+                            delete-button>
+                            X
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
+
                 <div>
-                  <form action="" new-item class="new-form">
+                  <form id="form" action="" new-item class="new-form">
                     <input
                       type="text"
                       class="add-new"
                       placeholder="Add New Income"
                       aria-label="new income"
-                      add-new /><button
+                      add-new />
+                    <button
                       class="add-button"
-                      aria-label="create new income">
+                      aria-label="create new income"
+                      add-income-button>
                       +
                     </button>
                   </form>
@@ -91,71 +138,166 @@
               <div id="create-new-income"></div>
             </div>
           </div>
+
           <!-- expense div -->
-            <div class="card-inner-div" id="expense-div" expense-div>
-                <div class="card-title" card-display-title>My Expenses</div>
-                <div card-display-list>
-                    <div>
-                        <table expense-card-table>
-                            <tr>
-                                <td>Mortgage/Rent</td>
-                                <td class="input">
-                                    <form action="">
-                                        <input type="number" class="dollar-amount" placeholder="$$$" aria-label="$$$" />
-                                    </form>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Car Note</td>
-                                <td class="input">
-                                    <form action="">
-                                        <input type="number" class="dollar-amount" placeholder="$$$" aria-label="$$$" />
-                                    </form>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Credit Card</td>
-                                <td class="input">
-                                    <form action="">
-                                        <input type="number" class="dollar-amount" placeholder="$$$" aria-label="$$$" />
-                                    </form>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Electricity Bill</td>
-                                <td class="input">
-                                    <form action="">
-                                        <input type="number" class="dollar-amount" placeholder="$$$" aria-label="$$$" />
-                                    </form>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Cable Bill</td>
-                                <td class="input">
-                                    <form action="">
-                                        <input type="number" class="dollar-amount" placeholder="$$$" aria-label="$$$" />
-                                    </form>
-                                </td>
-                            </tr>
-                        </table>
-                        <div>
-                            <form action="" new-expense-item class="new-form">
-                                <input type="text" class="add-new" placeholder="Add New Expenses" aria-label="new expense"
-                                 add-new-expense /><button class="add-button" aria-label="create new expense">
-                                    +
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div id="create-new-income"></div>
+          <div class="card-inner-div" id="expense-div" expense-div>
+            <div class="card-title" card-display-title>My Expenses</div>
+            <div card-display-list>
+              <div>
+                <table>
+                  <tbody expense-card-table>
+                    <tr>
+                      <td>Mortgage/Rent</td>
+                      <td class="input">
+                        <form id="form" action="">
+                          <input
+                            type="number"
+                            class="dollar-amount"
+                            placeholder="$$$"
+                            data-input-index="3"
+                            aria-label="$$$" />
+                          <button
+                            class="submit-button"
+                            data-input-index="3"
+                            submit-button>
+                            >
+                          </button>
+                          <button
+                            class="delete-button"
+                            data-input-index="3"
+                            delete-button>
+                            X
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Car Note</td>
+                      <td class="input">
+                        <form id="form" action="">
+                          <input
+                            type="number"
+                            class="dollar-amount"
+                            placeholder="$$$"
+                            data-input-index="4"
+                            aria-label="$$$" />
+                          <button
+                            class="submit-button"
+                            data-input-index="4"
+                            submit-button>
+                            >
+                          </button>
+                          <button
+                            class="delete-button"
+                            data-input-index="4"
+                            delete-button>
+                            X
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Credit Card</td>
+                      <td class="input">
+                        <form id="form" action="">
+                          <input
+                            type="number"
+                            class="dollar-amount"
+                            placeholder="$$$"
+                            data-input-index="5"
+                            aria-label="$$$" />
+                            <button class="submit-button" data-input-index="5" submit-button>
+                              >
+                            </button>
+                            <button class="delete-button" data-input-index="5" delete-button>
+                              X
+                            </button>
+                        </form>
+                        
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Electricity Bill</td>
+                      <td class="input">
+                        <form id="form" action="">
+                          <input
+                            type="number"
+                            class="dollar-amount"
+                            placeholder="$$$"
+                            aria-label="$$$"
+                            data-input-index="6" />
+                            <button class="submit-button" data-input-index="6" submit-button>
+                              >
+                            </button>
+                            <button class="delete-button" data-input-index="6" delete-button>
+                              X
+                            </button>
+                        </form>
+                       
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Cable Bill</td>
+                      <td class="input">
+                        <form id="form" action="">
+                          <input
+                            type="number"
+                            class="dollar-amount"
+                            placeholder="$$$"
+                            aria-label="$$$"
+                            data-input-index="7" />
+                          <button
+                            class="submit-button"
+                            data-input-index="7"
+                            submit-button>
+                            >
+                          </button>
+                          <button
+                            class="delete-button"
+                            data-input-index="7"
+                            delete-button>
+                            X
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div>
+                  <form id="form" action="" new-expense-item class="new-form">
+                    <input
+                      type="text"
+                      class="add-new"
+                      placeholder="Add New Expense"
+                      aria-label="new expense"
+                      add-new-expense /><button
+                      class="add-button"
+                      aria-label="create new expense"
+                      data-input-index="8"
+                      add-expense-button>
+                      +
+                    </button>
+                    <!-- <button
+                      class="submit-button"
+                      data-input-index="8"
+                      submit-button>
+                      >
+                    </button>
+                    <button
+                      class="delete-button"
+                      data-input-index="8"
+                      delete-button>
+                      X
+                    </button> -->
+                  </form>
                 </div>
+              </div>
+              <div id="create-new-income"></div>
             </div>
-            </div>
+          </div>
         </div>
       </div>
-      <div></div>
     </div>
+    <div></div>
   </body>
 </html>
