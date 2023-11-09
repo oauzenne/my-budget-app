@@ -79,13 +79,24 @@ function submitNumberClick(buttonIndex) {
   const num = [];
   for (let i = 0; i < amountInputs.length; i++) {
     const input = amountInputs[i];
-    if (buttonIndex === input.getAttribute("data-input-index")) {
+
+    console.log(input.value);
+    console.log(input.value === "");
+
+    if (
+      buttonIndex === input.getAttribute("data-input-index") &&
+      input.value !== ""
+    ) {
       num.push(parseInt(input.value));
       netTotal.push(num);
-      console.log(netTotal);
-      console.log(netTotal.length);
+    } else if (
+      buttonIndex === input.getAttribute("data-input-index") &&
+      input.value === ""
+    ) {
+      alert("Please enter a value!");
     }
   }
+
   let sum = 0;
 
   for (const items of netTotal) {
