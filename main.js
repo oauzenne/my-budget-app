@@ -16,10 +16,13 @@ const listItems = document.querySelectorAll("#list li");
 const expenseButton = document.querySelector("[add-expense-button]");
 const incomeButton = document.querySelector("[add-income-button]");
 
-const netTotal = [];
+let netTotal = [];
 const indexInputList = [];
 
 let dollar = document.querySelector("[dollar]");
+
+dollar.textContent = 0;
+
 let activeDiv = "Income";
 
 form.addEventListener("submit", (event) => {
@@ -36,6 +39,7 @@ for (const amountInput of amountInputs) {
   amountInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
+      submitNumberClick(amountInput.getAttribute("data-input-index"));
     }
   });
 }
@@ -72,13 +76,24 @@ listItems.forEach((listItem) => {
 });
 
 function submitNumberClick(buttonIndex) {
+  const num = [];
   for (let i = 0; i < amountInputs.length; i++) {
     const input = amountInputs[i];
     if (buttonIndex === input.getAttribute("data-input-index")) {
-      netTotal.push(input.value);
+      num.push(parseInt(input.value));
+      netTotal.push(num);
       console.log(netTotal);
+      console.log(netTotal.length);
     }
   }
+  let sum = 0;
+
+  for (const items of netTotal) {
+    for (const item of items) {
+      sum += item;
+    }
+  }
+  dollar.textContent = sum;
 }
 
 function handleSubmit() {
@@ -142,20 +157,19 @@ function handleExpenseSubmit() {
   dollarInput.type = "number";
   dollarInput.placeholder = "$$$";
 
-    for (let i = 0; i < amountInputs.length; i++) {
+  for (let i = 0; i < amountInputs.length; i++) {
     const input = amountInputs[i];
     indexInputList.push(input.getAttribute("data-input-index"));
-    }
-  
+  }
+
   let highestNumber = Math.max(...indexInputList);
   let newIndex = parseInt(highestNumber) + 1;
   indexInputList.push(newIndex);
   dollarInput.setAttribute("data-input-index", newIndex);
-  
+
   dollarInput.classList.add("dollar-amount");
 
   expenseCell.textContent = expenseInput.value;
-
 
   const submitButton = document.createElement("button");
   submitButton.textContent = ">";
