@@ -12,13 +12,9 @@ const listTitleExpense = document.querySelector("[list-title-expense]");
 const submitButtons = document.querySelectorAll("[submit-button]");
 const subtractButtons = document.querySelectorAll("[subtract-button]");
 const deleteSubmitButtons = document.querySelectorAll("[delete-submit-button]");
-const deleteExpenseButtons = document.querySelectorAll(
-  "[delete-expense-button]"
-);
+const deleteExpenseButtons = document.querySelectorAll("[delete-expense-button]");
 const amountInputs = document.getElementsByClassName("dollar-amount");
-const amountExpenseInputs = document.getElementsByClassName(
-  "dollar-amount-expense"
-);
+const amountExpenseInputs = document.getElementsByClassName("dollar-amount-expense");
 const tableRows = document.querySelectorAll("tr");
 
 const listItems = document.querySelectorAll("#list li");
