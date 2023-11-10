@@ -22,7 +22,9 @@ const incomeButton = document.querySelector("[add-income-button]");
 
 let netTotal = [];
 let buttonIndexes = [];
-const indexInputList = [];
+let buttonExpenseIndexes = [];
+const indexInputList = [0, 1, 2];
+const indexInputExpenseList = [3, 4, 5, 6, 7];
 
 let dollar = document.querySelector("[dollar]");
 
@@ -100,6 +102,7 @@ listItems.forEach((listItem) => {
 function submitNumberClick(buttonIndex) {
   let num = null;
   let matchedIndex = null;
+
   for (let i = 0; i < amountInputs.length; i++) {
     const input = amountInputs[i];
     if (
@@ -111,14 +114,17 @@ function submitNumberClick(buttonIndex) {
 
       if (buttonIndexes.includes(matchedIndex)) {
         const findIndex = netTotal.findIndex(
-          (object) => object.index === matchedIndex
+          (object) => object.submitIndex === matchedIndex
         );
-        netTotal[findIndex].number = num;
+        netTotal[findIndex].submitNumber = num;
+
         break;
       } else {
         const newObject = {
-          index: matchedIndex,
-          number: num,
+          submitIndex: matchedIndex,
+          expenseIndex: null,
+          submitNumber: num,
+          expenseNumber: null,
         };
         netTotal.push(newObject);
 
@@ -129,15 +135,62 @@ function submitNumberClick(buttonIndex) {
     }
   }
 
-  let sum = 0;
+  let totalSubmit = 0;
+  let totalExpense = 0;
+  let total = 0;
+
   for (const obj of netTotal) {
-    sum += obj.number;
+    totalSubmit += obj.submitNumber;
+    totalExpense += obj.expenseNumber;
   }
-  dollar.textContent = sum;
+  total = totalSubmit + totalExpense;
+  dollar.textContent = total;
 }
 
 function submitExpenseClick(buttonIndex) {
-  console.log("hey!", buttonIndex);
+  let num = null;
+  let matchedIndex = null;
+
+  for (let i = 0; i < amountExpenseInputs.length; i++) {
+    const input = amountExpenseInputs[i];
+
+    if (
+      buttonIndex === input.getAttribute("data-input-index") &&
+      input.value !== ""
+    ) {
+      num = parseInt(input.value);
+      matchedIndex = input.getAttribute("data-input-index");
+
+      if (buttonExpenseIndexes.includes(matchedIndex)) {
+        const findIndex = netTotal.findIndex(
+          (object) => object.expenseIndex === matchedIndex
+        );
+        netTotal[findIndex].expenseNumber = -num;
+        break;
+      } else {
+        newObject = {
+          submitIndex: null,
+          expenseIndex: matchedIndex,
+          submitNumber: null,
+          expenseNumber: -num,
+        };
+        netTotal.push(newObject);
+        buttonExpenseIndexes.push(matchedIndex);
+        break;
+      }
+    }
+  }
+
+  let totalSubmit = 0;
+  let totalExpense = 0;
+  let total = 0;
+
+  for (const obj of netTotal) {
+    totalSubmit += obj.submitNumber;
+    totalExpense += obj.expenseNumber;
+  }
+  total = totalSubmit + totalExpense;
+  dollar.textContent = total;
 }
 
 function handleSubmit() {
@@ -173,7 +226,6 @@ function handleSubmit() {
   deleteButton.textContent = "X";
   deleteButton.classList.add("delete-button");
   deleteButton.setAttribute("data-input-index", newIndex);
-  console.log(indexInputList);
   indexInputList.length = 0;
 
   dollarInput.addEventListener("keypress", (event) => {
@@ -217,29 +269,28 @@ function handleExpenseSubmit() {
 
   for (let i = 0; i < amountExpenseInputs.length; i++) {
     const input = amountExpenseInputs[i];
-    indexInputList.push(input.getAttribute("data-input-index"));
+    indexInputExpenseList.push(input.getAttribute("data-input-index"));
   }
 
-  let highestNumber = Math.max(...indexInputList);
+  let highestNumber = Math.max(...indexInputExpenseList);
   let newIndex = parseInt(highestNumber) + 1;
-  indexInputList.push(newIndex);
+  indexInputExpenseList.push(newIndex);
   dollarInput.setAttribute("data-input-index", newIndex);
 
   dollarInput.classList.add("dollar-amount-expense");
 
   expenseCell.textContent = expenseInput.value;
 
-  const submitButton = document.createElement("button");
-  submitButton.textContent = ">";
-  submitButton.classList.add("subtract-button-new");
-  submitButton.setAttribute("data-input-index", newIndex);
+  const subtractButton = document.createElement("button");
+  subtractButton.textContent = ">";
+  subtractButton.classList.add("subtract-button-new");
+  subtractButton.setAttribute("data-input-index", newIndex);
 
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "X";
   deleteButton.classList.add("delete-button");
   deleteButton.setAttribute("data-input-index", newIndex);
-  console.log(indexInputList);
-  indexInputList.length = 0;
+  indexInputExpenseList.length = 0;
 
   dollarInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
@@ -248,7 +299,7 @@ function handleExpenseSubmit() {
     }
   });
 
-  submitButton.addEventListener("click", (event) => {
+  subtractButton.addEventListener("click", (event) => {
     event.preventDefault();
     const clickedButton = event.target.closest("button");
     submitExpenseClick(clickedButton.getAttribute("data-input-index"));
@@ -258,7 +309,7 @@ function handleExpenseSubmit() {
   newForm.setAttribute("id", "form");
 
   newForm.appendChild(dollarInput);
-  newForm.appendChild(submitButton);
+  newForm.appendChild(subtractButton);
   newForm.appendChild(deleteButton);
   dollarCell.appendChild(newForm);
 
@@ -276,7 +327,6 @@ function renderCards(clickedText) {
     listTitleExpense.classList.add("list-item-active");
     incomeCard.style.display = "none";
     listTitleIncome.classList.remove("list-item-active");
-    console.log(incomeCard.display);
   } else if (clickedText === "Income") {
     incomeCard.style.display = "block";
     listTitleExpense.classList.remove("list-item-active");
