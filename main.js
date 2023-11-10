@@ -123,13 +123,8 @@ listItems.forEach((listItem) => {
 
 function deleteExpenseItem(buttonIndex) {
   for (const row of tableRowList) {
-    console.log(tableRowList);
-    console.log(row);
-
     const rowIndexList = row.getAttribute("data-input-index");
     const rowClassList = row.getAttribute("class");
-    console.log(rowIndexList);
-    console.log(rowClassList);
 
     if (buttonIndex === rowIndexList && rowClassList === "expense-row") {
       row.style.display = "none";
@@ -144,33 +139,27 @@ function deleteExpenseItem(buttonIndex) {
     }
   }
 
-  // get the index of the button that was clicked
-  // find tr with that same index
-  // set display of that tr to none
-  // then find the expenseindex in nettotal
-  // then set the expensenumber to 0
+  const findIndex = netTotal.findIndex(
+    (object) => object.expenseIndex === buttonIndex
+  );
+  netTotal[findIndex].expenseNumber = 0;
 
-  //   let totalSubmit = 0;
-  // let totalExpense = 0;
-  // let total = 0;
+  let totalSubmit = 0;
+  let totalExpense = 0;
+  let total = 0;
 
-  // for (const obj of netTotal) {
-  //   totalSubmit += obj.submitNumber;
-  //   totalExpense += obj.expenseNumber;
-  // }
-  // total = totalSubmit + totalExpense;
-  // dollar.textContent = total;
+  for (const obj of netTotal) {
+    totalSubmit += obj.submitNumber;
+    totalExpense += obj.expenseNumber;
+  }
+  total = totalSubmit + totalExpense;
+  dollar.textContent = total;
 }
 
 function deleteSubmitItem(buttonIndex) {
   for (const row of tableRowList) {
-    console.log(tableRowList);
-    console.log(row);
-
     const rowIndexList = row.getAttribute("data-input-index");
     const rowClassList = row.getAttribute("class");
-    console.log(rowIndexList);
-    console.log(rowClassList);
 
     if (buttonIndex === rowIndexList && rowClassList === "submit-row") {
       row.style.display = "none";
@@ -184,22 +173,22 @@ function deleteSubmitItem(buttonIndex) {
       row.style.display = "none";
     }
   }
-  // get the index of the button that was clicked
-  // find tr with that same index
-  // set display of that tr to none
-  // then find the submitindex in nettotal
-  // then set the submitnumber to 0 parse int
 
-  // let totalSubmit = 0;
-  // let totalExpense = 0;
-  // let total = 0;
+  const findIndex = netTotal.findIndex(
+    (object) => object.submitIndex === buttonIndex
+  );
+  netTotal[findIndex].submitNumber = 0;
 
-  // for (const obj of netTotal) {
-  //   totalSubmit += obj.submitNumber;
-  //   totalExpense += obj.expenseNumber;
-  // }
-  // total = totalSubmit + totalExpense;
-  // dollar.textContent = total;
+  let totalSubmit = 0;
+  let totalExpense = 0;
+  let total = 0;
+
+  for (const obj of netTotal) {
+    totalSubmit += obj.submitNumber;
+    totalExpense += obj.expenseNumber;
+  }
+  total = totalSubmit + totalExpense;
+  dollar.textContent = total;
 }
 
 function submitNumberClick(buttonIndex) {
