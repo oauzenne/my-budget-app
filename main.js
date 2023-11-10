@@ -17,6 +17,7 @@ const expenseButton = document.querySelector("[add-expense-button]");
 const incomeButton = document.querySelector("[add-income-button]");
 
 let netTotal = [];
+let buttonIndexes = [];
 const indexInputList = [];
 
 let dollar = document.querySelector("[dollar]");
@@ -76,33 +77,40 @@ listItems.forEach((listItem) => {
 });
 
 function submitNumberClick(buttonIndex) {
-  const num = [];
+  let num = null;
+  let matchedIndex = null;
   for (let i = 0; i < amountInputs.length; i++) {
     const input = amountInputs[i];
-
-    console.log(input.value);
-    console.log(input.value === "");
-
     if (
       buttonIndex === input.getAttribute("data-input-index") &&
       input.value !== ""
     ) {
-      num.push(parseInt(input.value));
-      netTotal.push(num);
-    } else if (
-      buttonIndex === input.getAttribute("data-input-index") &&
-      input.value === ""
-    ) {
-      alert("Please enter a value!");
+      num = parseInt(input.value);
+      matchedIndex = input.getAttribute("data-input-index");
+
+      if (buttonIndexes.includes(matchedIndex)) {
+        const findIndex = netTotal.findIndex(
+          (object) => object.index === matchedIndex
+        );
+        netTotal[findIndex].number = num;
+        break;
+      } else {
+        const newObject = {
+          index: matchedIndex,
+          number: num,
+        };
+        netTotal.push(newObject);
+
+        buttonIndexes.push(matchedIndex);
+
+        break;
+      }
     }
   }
 
   let sum = 0;
-
-  for (const items of netTotal) {
-    for (const item of items) {
-      sum += item;
-    }
+  for (const obj of netTotal) {
+    sum += obj.number;
   }
   dollar.textContent = sum;
 }
@@ -143,7 +151,21 @@ function handleSubmit() {
   console.log(indexInputList);
   indexInputList.length = 0;
 
+  dollarInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitNumberClick(dollarInput.getAttribute("data-input-index"));
+    }
+  });
+
+  submitButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    const clickedButton = event.target.closest("button");
+    submitNumberClick(clickedButton.getAttribute("data-input-index"));
+  });
+
   const newForm = document.createElement("form");
+  newForm.setAttribute("id", "form");
 
   newForm.appendChild(dollarInput);
   newForm.appendChild(submitButton);
@@ -194,7 +216,21 @@ function handleExpenseSubmit() {
   console.log(indexInputList);
   indexInputList.length = 0;
 
+  dollarInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitNumberClick(dollarInput.getAttribute("data-input-index"));
+    }
+  });
+
+  submitButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    const clickedButton = event.target.closest("button");
+    submitNumberClick(clickedButton.getAttribute("data-input-index"));
+  });
+
   const newForm = document.createElement("form");
+  newForm.setAttribute("id", "form");
 
   newForm.appendChild(dollarInput);
   newForm.appendChild(submitButton);
