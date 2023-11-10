@@ -10,8 +10,12 @@ const incomeCard = document.querySelector("[income-div]");
 const listTitleIncome = document.querySelector("[list-title-income]");
 const listTitleExpense = document.querySelector("[list-title-expense]");
 const submitButtons = document.querySelectorAll("[submit-button]");
+const subtractButtons = document.querySelectorAll("[subtract-button]");
 const deleteButton = document.querySelector("[delete-button]");
 const amountInputs = document.getElementsByClassName("dollar-amount");
+const amountExpenseInputs = document.getElementsByClassName(
+  "dollar-amount-expense"
+);
 const listItems = document.querySelectorAll("#list li");
 const expenseButton = document.querySelector("[add-expense-button]");
 const incomeButton = document.querySelector("[add-income-button]");
@@ -45,11 +49,28 @@ for (const amountInput of amountInputs) {
   });
 }
 
+for (const amountExpenseInput of amountExpenseInputs) {
+  amountExpenseInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitExpenseClick(amountExpenseInput.getAttribute("data-input-index"));
+    }
+  });
+}
+
 submitButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
     event.preventDefault();
     const clickedButton = event.target.closest("button");
     submitNumberClick(clickedButton.getAttribute("data-input-index"));
+  });
+});
+
+subtractButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    const clickedButton = event.target.closest("button");
+    submitExpenseClick(clickedButton.getAttribute("data-input-index"));
   });
 });
 
@@ -113,6 +134,10 @@ function submitNumberClick(buttonIndex) {
     sum += obj.number;
   }
   dollar.textContent = sum;
+}
+
+function submitExpenseClick(buttonIndex) {
+  console.log("hey!", buttonIndex);
 }
 
 function handleSubmit() {
@@ -190,8 +215,8 @@ function handleExpenseSubmit() {
   dollarInput.type = "number";
   dollarInput.placeholder = "$$$";
 
-  for (let i = 0; i < amountInputs.length; i++) {
-    const input = amountInputs[i];
+  for (let i = 0; i < amountExpenseInputs.length; i++) {
+    const input = amountExpenseInputs[i];
     indexInputList.push(input.getAttribute("data-input-index"));
   }
 
@@ -200,13 +225,13 @@ function handleExpenseSubmit() {
   indexInputList.push(newIndex);
   dollarInput.setAttribute("data-input-index", newIndex);
 
-  dollarInput.classList.add("dollar-amount");
+  dollarInput.classList.add("dollar-amount-expense");
 
   expenseCell.textContent = expenseInput.value;
 
   const submitButton = document.createElement("button");
   submitButton.textContent = ">";
-  submitButton.classList.add("submit-button-new");
+  submitButton.classList.add("subtract-button-new");
   submitButton.setAttribute("data-input-index", newIndex);
 
   const deleteButton = document.createElement("button");
@@ -219,14 +244,14 @@ function handleExpenseSubmit() {
   dollarInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      submitNumberClick(dollarInput.getAttribute("data-input-index"));
+      submitExpenseClick(dollarInput.getAttribute("data-input-index"));
     }
   });
 
   submitButton.addEventListener("click", (event) => {
     event.preventDefault();
     const clickedButton = event.target.closest("button");
-    submitNumberClick(clickedButton.getAttribute("data-input-index"));
+    submitExpenseClick(clickedButton.getAttribute("data-input-index"));
   });
 
   const newForm = document.createElement("form");
