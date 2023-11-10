@@ -11,11 +11,16 @@ const listTitleIncome = document.querySelector("[list-title-income]");
 const listTitleExpense = document.querySelector("[list-title-expense]");
 const submitButtons = document.querySelectorAll("[submit-button]");
 const subtractButtons = document.querySelectorAll("[subtract-button]");
-const deleteButton = document.querySelector("[delete-button]");
+const deleteSubmitButtons = document.querySelectorAll("[delete-submit-button]");
+const deleteExpenseButtons = document.querySelectorAll(
+  "[delete-expense-button]"
+);
 const amountInputs = document.getElementsByClassName("dollar-amount");
 const amountExpenseInputs = document.getElementsByClassName(
   "dollar-amount-expense"
 );
+const tableRows = document.querySelectorAll("tr");
+
 const listItems = document.querySelectorAll("#list li");
 const expenseButton = document.querySelector("[add-expense-button]");
 const incomeButton = document.querySelector("[add-income-button]");
@@ -25,6 +30,7 @@ let buttonIndexes = [];
 let buttonExpenseIndexes = [];
 const indexInputList = [0, 1, 2];
 const indexInputExpenseList = [3, 4, 5, 6, 7];
+let tableRowList = [];
 
 let dollar = document.querySelector("[dollar]");
 
@@ -68,6 +74,22 @@ submitButtons.forEach((button) => {
   });
 });
 
+deleteSubmitButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    const clickedButton = event.target.closest("button");
+    deleteSubmitItem(clickedButton.getAttribute("data-input-index"));
+  });
+});
+
+deleteExpenseButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    const clickedButton = event.target.closest("button");
+    deleteExpenseItem(clickedButton.getAttribute("data-input-index"));
+  });
+});
+
 subtractButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
     event.preventDefault();
@@ -98,6 +120,87 @@ listItems.forEach((listItem) => {
     renderCards(activeDiv);
   });
 });
+
+function deleteExpenseItem(buttonIndex) {
+  for (const row of tableRowList) {
+    console.log(tableRowList);
+    console.log(row);
+
+    const rowIndexList = row.getAttribute("data-input-index");
+    const rowClassList = row.getAttribute("class");
+    console.log(rowIndexList);
+    console.log(rowClassList);
+
+    if (buttonIndex === rowIndexList && rowClassList === "expense-row") {
+      row.style.display = "none";
+    }
+  }
+
+  for (const row of tableRows) {
+    const rowIndex = row.getAttribute("data-input-index");
+    const rowClass = row.getAttribute("class");
+    if (buttonIndex === rowIndex && rowClass === "expense-row") {
+      row.style.display = "none";
+    }
+  }
+
+  // get the index of the button that was clicked
+  // find tr with that same index
+  // set display of that tr to none
+  // then find the expenseindex in nettotal
+  // then set the expensenumber to 0
+
+  //   let totalSubmit = 0;
+  // let totalExpense = 0;
+  // let total = 0;
+
+  // for (const obj of netTotal) {
+  //   totalSubmit += obj.submitNumber;
+  //   totalExpense += obj.expenseNumber;
+  // }
+  // total = totalSubmit + totalExpense;
+  // dollar.textContent = total;
+}
+
+function deleteSubmitItem(buttonIndex) {
+  for (const row of tableRowList) {
+    console.log(tableRowList);
+    console.log(row);
+
+    const rowIndexList = row.getAttribute("data-input-index");
+    const rowClassList = row.getAttribute("class");
+    console.log(rowIndexList);
+    console.log(rowClassList);
+
+    if (buttonIndex === rowIndexList && rowClassList === "submit-row") {
+      row.style.display = "none";
+    }
+  }
+
+  for (const row of tableRows) {
+    const rowIndex = row.getAttribute("data-input-index");
+    const rowClass = row.getAttribute("class");
+    if (buttonIndex === rowIndex && rowClass === "submit-row") {
+      row.style.display = "none";
+    }
+  }
+  // get the index of the button that was clicked
+  // find tr with that same index
+  // set display of that tr to none
+  // then find the submitindex in nettotal
+  // then set the submitnumber to 0 parse int
+
+  // let totalSubmit = 0;
+  // let totalExpense = 0;
+  // let total = 0;
+
+  // for (const obj of netTotal) {
+  //   totalSubmit += obj.submitNumber;
+  //   totalExpense += obj.expenseNumber;
+  // }
+  // total = totalSubmit + totalExpense;
+  // dollar.textContent = total;
+}
 
 function submitNumberClick(buttonIndex) {
   let num = null;
@@ -222,9 +325,12 @@ function handleSubmit() {
   submitButton.classList.add("submit-button-new");
   submitButton.setAttribute("data-input-index", newIndex);
 
+  newRow.setAttribute("data-input-index", newIndex);
+  newRow.classList.add("submit-row");
+  tableRowList.push(newRow);
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "X";
-  deleteButton.classList.add("delete-button");
+  deleteButton.classList.add("delete-submit-button");
   deleteButton.setAttribute("data-input-index", newIndex);
   indexInputList.length = 0;
 
@@ -239,6 +345,12 @@ function handleSubmit() {
     event.preventDefault();
     const clickedButton = event.target.closest("button");
     submitNumberClick(clickedButton.getAttribute("data-input-index"));
+  });
+
+  deleteButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    const clickedButton = event.target.closest("button");
+    deleteSubmitItem(clickedButton.getAttribute("data-input-index"));
   });
 
   const newForm = document.createElement("form");
@@ -286,9 +398,13 @@ function handleExpenseSubmit() {
   subtractButton.classList.add("subtract-button-new");
   subtractButton.setAttribute("data-input-index", newIndex);
 
+  newRow.setAttribute("data-input-index", newIndex);
+  newRow.classList.add("expense-row");
+  tableRowList.push(newRow);
+
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "X";
-  deleteButton.classList.add("delete-button");
+  deleteButton.classList.add("delete-expense-button");
   deleteButton.setAttribute("data-input-index", newIndex);
   indexInputExpenseList.length = 0;
 
@@ -303,6 +419,12 @@ function handleExpenseSubmit() {
     event.preventDefault();
     const clickedButton = event.target.closest("button");
     submitExpenseClick(clickedButton.getAttribute("data-input-index"));
+  });
+
+  deleteButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    const clickedButton = event.target.closest("button");
+    deleteExpenseItem(clickedButton.getAttribute("data-input-index"));
   });
 
   const newForm = document.createElement("form");

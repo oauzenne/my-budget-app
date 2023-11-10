@@ -34,7 +34,16 @@ h2 {
   cursor: pointer;
 }
 
-.delete-button {
+.delete-submit-button {
+  border-radius: 50px;
+  background: #ff7f7f;
+  border: 0px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.delete-expense-button {
   border-radius: 50px;
   background: #ff7f7f;
   border: 0px;
