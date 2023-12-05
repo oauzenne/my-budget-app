@@ -4,4 +4,10 @@ A simple app for creating a budget. Users can:
 - Outline expense items and watch their net income decrease
 - Add in additonal income and expenses
 - Delete income and expenses
+
+Technologies used: 
+- Javascript
+- HTML
+- CSS
+  
 # my-budget-app
